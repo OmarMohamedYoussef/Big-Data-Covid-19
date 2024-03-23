@@ -1,0 +1,44 @@
+<!-- ****************************************** -->
+<!-- workflow.xml                               -->
+<!-- ****************************************** -->
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="COVID_WORKFLOW_SCRIPT">
+    <start to="uploadFiles"/>
+    
+    <!-- Upload files to HDFS action -->
+    <action name="uploadFiles">
+        <fs xmlns="uri:oozie:fs-action:0.2">
+            <mkdir path="/user/cloudera/scripts"/>
+            <copy>
+                <source>file:///path/to/Load_COVID_TO_HDFS.sh</source>
+                <target>/user/cloudera/scripts/Load_COVID_TO_HDFS.sh</target>
+            </copy>
+            <copy>
+                <source>file:///path/to/HiveCode.hql</source>
+                <target>/user/cloudera/scripts/HiveCode.hql</target>
+            </copy>
+        </fs>
+        <ok to="covid_data_preparation"/>
+        <error to="killAction"/>
+    </action>
+
+    <!-- Define your Hive action here -->
+    <action name="covid_data_preparation">
+        <hive xmlns="uri:oozie:hive-action:0.5">
+            <!-- Specify your Hive action properties -->
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <job-xml>${oozieProjectRoot}/hive-site.xml</job-xml>
+            <script>/user/cloudera/scripts/HiveCode.hql</script>
+        </hive>
+        <ok to="end"/>
+        <error to="killAction"/>
+    </action>
+
+    <!-- Kill action in case of failure -->
+    <kill name="killAction">
+        <message>Action failed, error message[${wf:actionData('uploadFiles')['STATUS']}] , message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+
+    <!-- End of workflow -->
+    <end name="end"/>
+</workflow-app>
