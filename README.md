@@ -82,8 +82,6 @@ Use the script :
 ```
 #
 
-![GitHub Logo](https://github.com/OmarMohamedYoussef/Big-Data-Covid-19/blob/main/pic/Oozie.jpg)
-
 ## Project Steps
 
 1- After running the script and loading the dataset into HDFS, you can make sure in terminal that the data is loaded successfully
@@ -102,7 +100,9 @@ Note: maybe you can face the error below because of the low memory, so the HiveC
     Error while compiling statement: FAILED: SemanticException org.apache.hadoop.hive.ql.metadata.InvalidTableException: Table not found covid_ds_partitioned
 ```
 
-4- Open Oozie Workflow and create Workflow to run HDFS file and Hive command as shown in Pic file,
+4- Open Oozie Workflow and create Workflow to run HDFS file and Hive command as shown below,
+
+![GitHub Logo](https://github.com/OmarMohamedYoussef/Big-Data-Covid-19/blob/main/pic/Oozie.jpg)
 
 Note: there are three files to run Oozie workflow:
     - workflow.xml
