@@ -112,3 +112,5 @@ Note: there are three files to run Oozie workflow:
 5- Download the Dataset from the output file.
 
 6- Open Power BI to report file and visualize it.
+
+![GitHub Logo](https://github.com/OmarMohamedYoussef/Big-Data-Covid-19/blob/d7d2835339fc39c39fa5d269d3efb47084bb5c28/pic/PowerBI.png)
